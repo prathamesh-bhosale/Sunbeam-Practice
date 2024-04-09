@@ -1,0 +1,9 @@
+table {
+    width: 100%;
+  }
+  
+tr {
+    height: 70px;
+  }
+  br{content:' ';}
+  br:after{content:' ';}
