@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 06</title>
+</head>
+
+<body><center>
+    <table style="display: inline-block; text-align: center ; border: black solid ; ">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>FIRST NAME</th>
+                <th>LAST NAME</th>
+                <th>EMAIL</th>
+                <th>AVATAR</th>
+            </tr>
+        </thead>
+        <tbody id="myTableBody">
+           
+        </tbody>
+    </table>
+    <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+    <button onclick="populate()">Populate</button>
+</center>
+    <script>
+        function populate() {
+            var refToTable = document.getElementById("myTableBody");
+            // var pgno = ;
+            const apiObJ = `https://reqres.in/api/users?page=2`;
+            var users = {
+            };
+
+
+
+            fetch(apiObJ)
+                .then(response => {
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    return response.json();
+                })
+                .then(data => {
+                    
+    //                 console.log(data);
+    //                 for (let i = 0; i < data.data.length; i++) {
+    //                      const element = data.data[i];
+    //                         console.log(element); // Print each element of the data object
+    //   // You can perform further processing here
+    //             }
+                    for (var index = 0; index < data.data.length; index++) {
+                        const user = data.data[index];
+                        
+                        // console.log(user);
+                        
+
+
+                        var row =
+                            `<tr>
+                        <td>` +
+                            user.id +
+                            `</td>
+                        <td>` +
+                            user.first_name +
+                            `</td>
+                        <td>` +
+                            user.last_name +
+                            `</td>
+                       <td>` +
+                            user.email +
+                            `</td>
+                        <td>
+                        <img
+                            src="` +
+                            user.avatar +
+                            `"
+                            height="100px"
+                            width="100px"
+                        />
+                        </td>
+                    </tr>`;
+
+                    refToTable.innerHTML = refToTable.innerHTML + row;
+                    }
+                })
+                .catch(error => {
+                    // Handling any errors that occur during the fetch request
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+        }
+    </script>
+</body>
+
+</html>
